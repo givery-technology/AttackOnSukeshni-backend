@@ -33,8 +33,7 @@
     responses:
       200:
         users:
-          - user:
-            id: number
+          - id: number
             name: string
             image_url: string
   GET /users/:id:
@@ -87,8 +86,7 @@
     responses:
       200:
         organizations:
-          - organization:
-            id: number
+          - id: number
             name: string
             image_url: string
   POST /organizations:
