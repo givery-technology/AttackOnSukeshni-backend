@@ -7,14 +7,66 @@ router.use(require('../middlewares/auth'));
 
 // GET /users
 router.get('/', function (req, res, next) {
-  res.json(["users"]);
+  // res.json(["users"]);
+  res.status(200).json(
+    {
+      "users":[
+        {"id":1,"name":"owner1","image_url":null},
+        {"id":2,"name":"owner2","image_url":null},
+        {"id":3,"name":"owner3","image_url":null},
+      ]
+    });
   return next();
 });
 
 // GET /users/:id
 router.get('/:id', function (req, res, next) {
-  res.json({id: req.params.id, name: "John Doe"});
+  res.status(200).json(
+    {
+      id: req.params.id, name: "John Doe", "image_url":null
+    });
   return next();
-})
+});
+
+
+router.get('/:id/flowers', function (req, res, next) {
+  res.status(200).json(
+    {
+      "flowers":[
+        {"name": "flower1", "count": 3},
+        {"name": "flower2", "count": 4},
+        {"name": "flower3", "count": 5},
+      ],
+      "send": [
+      {
+        "send_id": 2,
+        "sender": 
+          {"id": 2, "name": "user2", "image_url": null},
+          "flower_name": "flower2", 
+          "message": "message2"
+      },
+      {
+        "send_id": 3,
+        "sender": 
+          {"id": 3, "name": "user3", "image_url": null},
+          "flower_name": "flower3", 
+          "message": "message3"
+      },
+      {
+        "send_id": 4,
+        "sender": 
+          {"id": 4, "name": "user4", "image_url": null},
+          "flower_name": "flower4", 
+          "message": "message4"
+      }]
+    });
+  return next();
+});
+
+router.post('/:id/flowers', function (req, res, next) {
+  res.status(201);
+  return next();
+});
+
 
 module.exports = router;
