@@ -11,7 +11,6 @@ app.use(parser.json());
 app.use(parser.urlencoded({extended: true}));
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
-router.use(require('./middlewares/auth'));
 app.use('/users', require('./routes/users'));
 app.use('/organizations', require('./routes/organizations'));
 

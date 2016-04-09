@@ -8,8 +8,7 @@ module.exports = function auth (req, res, next) {
   if (hasTokenHeader(req)) {
     return next();
   }
-  res.status(401).send({ 
-    "message": 'No token provided. Already logged out' 
+  return res.status(401).send({ 
+    "message": 'No session information provided' 
   });
-  return res.end();
 };
