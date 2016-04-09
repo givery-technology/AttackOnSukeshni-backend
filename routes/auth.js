@@ -49,10 +49,6 @@ router.post('/signin', function (req, res, next) {
       return res.status(500).json(err);
     });
 
-  // 404 if not found
-
-
-
 });
 
 module.exports = router;
