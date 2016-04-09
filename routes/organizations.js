@@ -1,27 +1,25 @@
 'use strict';
 var
   express = require('express'),
-  router = express.Router();
+  router = express.Router(),
+  knex   = require('../helpers/knex');
 
 router.use(require('../middlewares/auth'));
 
 router.get('/', function (req, res, next) {
-  // mock data
-  res.status(200).json({
-    organizations: [
-      {
-        id: 1,
-        name: "organization1",
-        image_url: "https://google.com",
-      },
-      {
-        id: 2,
-        name: "organization2",
-        image_url: null,
-      },
-    ]
-  });
-  return next();
+  let offset = req.body.offset || 0;
+  let limit  = req.body.limit || 20;
+  knex
+    .select('id', 'name', 'image_url')
+    .from('organizations')
+    .offset(offset).limit(limit)
+    .then(function(rows) {
+      res.status(200).json(rows);
+      return next();
+    })
+    .catch(function(err) {
+      res.status(500).json(err);
+    });
 });
 
 router.post('/', function (req, res, next) {
