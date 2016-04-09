@@ -88,18 +88,21 @@ INSERT INTO organizations (id, name, owner_id) VALUES (1, 'organization1', 1);
 INSERT INTO organizations (id, name, owner_id) VALUES (2, 'organization2', 2);
 INSERT INTO organizations (id, name, owner_id) VALUES (3, 'organization3', 3);
 
-INSERT INTO organization_members (id, organization_id, user_id) VALUES (1,  1, 4);
-INSERT INTO organization_members (id, organization_id, user_id) VALUES (2,  1, 5);
-INSERT INTO organization_members (id, organization_id, user_id) VALUES (3,  1, 6);
-INSERT INTO organization_members (id, organization_id, user_id) VALUES (4,  1, 7);
-INSERT INTO organization_members (id, organization_id, user_id) VALUES (5,  1, 8);
-INSERT INTO organization_members (id, organization_id, user_id) VALUES (6,  1, 9);
-INSERT INTO organization_members (id, organization_id, user_id) VALUES (7,  2, 10);
-INSERT INTO organization_members (id, organization_id, user_id) VALUES (8,  2, 11);
-INSERT INTO organization_members (id, organization_id, user_id) VALUES (9,  2, 12);
-INSERT INTO organization_members (id, organization_id, user_id) VALUES (10, 3, 13);
-INSERT INTO organization_members (id, organization_id, user_id) VALUES (11, 3, 14);
-INSERT INTO organization_members (id, organization_id, user_id) VALUES (12, 3, 15);
+INSERT INTO organization_members (id, organization_id, user_id) VALUES (1,  1, 1);
+INSERT INTO organization_members (id, organization_id, user_id) VALUES (2,  2, 2);
+INSERT INTO organization_members (id, organization_id, user_id) VALUES (3,  3, 3);
+INSERT INTO organization_members (id, organization_id, user_id) VALUES (4,  1, 4);
+INSERT INTO organization_members (id, organization_id, user_id) VALUES (5,  1, 5);
+INSERT INTO organization_members (id, organization_id, user_id) VALUES (6,  1, 6);
+INSERT INTO organization_members (id, organization_id, user_id) VALUES (7,  1, 7);
+INSERT INTO organization_members (id, organization_id, user_id) VALUES (8,  1, 8);
+INSERT INTO organization_members (id, organization_id, user_id) VALUES (9,  1, 9);
+INSERT INTO organization_members (id, organization_id, user_id) VALUES (10,  2, 10);
+INSERT INTO organization_members (id, organization_id, user_id) VALUES (11,  2, 11);
+INSERT INTO organization_members (id, organization_id, user_id) VALUES (12,  2, 12);
+INSERT INTO organization_members (id, organization_id, user_id) VALUES (13, 3, 13);
+INSERT INTO organization_members (id, organization_id, user_id) VALUES (14, 3, 14);
+INSERT INTO organization_members (id, organization_id, user_id) VALUES (15, 3, 15);
 
 
 INSERT INTO flowers (id, url, name) VALUES (1,  'http://www.planwallpaper.com/static/images/flowers-3.jpg', 'flower1');

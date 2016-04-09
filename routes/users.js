@@ -3,6 +3,8 @@ var
   express = require('express'),
   router = express.Router();
 
+router.use(require('../middlewares/auth'));
+
 // GET /users
 router.get('/', function (req, res, next) {
   res.json(["users"]);
