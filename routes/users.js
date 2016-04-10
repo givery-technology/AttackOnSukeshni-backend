@@ -1,7 +1,8 @@
 'use strict';
 var
   express = require('express'),
-  router = express.Router();
+  router = express.Router(),
+  knex   = require('../helpers/knex');
 
 router.use(require('../middlewares/auth'));
 
@@ -64,8 +65,22 @@ router.get('/:id/flowers', function(req, res, next) {
 });
 
 router.post('/:id/flowers', function(req, res, next) {
-  res.status(201);
-  return next();
+  knex('flowers').where('name', req.body.flower_name)
+    .then(function(row){
+      if(!row[0]) {
+        res.status(404).send({
+          "message": "Flower Not Found"
+        });       
+      }
+      knex('user_flowers').insert({sender_user_id: req.body.sender_id, reciever_user_id: req.body.reciever_id, flower_id: row[0].id, message: req.body.message})
+        .then(function(row) {
+          return res.status(201).send({
+            "id": row
+          });
+        }).catch(function(err) {
+          return res.status(400).send({err});
+        });
+    });
 });
 
 
