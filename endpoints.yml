@@ -21,6 +21,10 @@
           id: number
           name: string
           image_url: string
+        organization:
+          id: number
+          name: string
+          image_url: string
         token: "dummytoken"
 
 ---
