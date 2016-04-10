@@ -28,6 +28,7 @@ router.post('/signin', function(req, res, next) {
     .join('organizations', 'organization_members.organization_id', 'organizations.id')
     .select(
         'users.id as user_id',
+        'users.email as user_email',
         'users.name as user_name',
         'users.image_url as user_image_url',
         'organizations.id as organization_id',
@@ -45,6 +46,7 @@ router.post('/signin', function(req, res, next) {
       res.status(200).json({
         user: {
           id: user_id,
+          email: user_email,
           name: user_name,
           image_url: user_image_url,
         },
