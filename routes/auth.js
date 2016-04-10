@@ -4,7 +4,7 @@ const
   router  = express.Router(),
   knex    = require('../helpers/knex');
 
-router.post('/signin', function (req, res, next) {
+router.post('/signin', function(req, res, next) {
   function isEmpty (val) {
     return val === "" ||
             val === null ||
@@ -30,7 +30,7 @@ router.post('/signin', function (req, res, next) {
     .where({
       'organizations.name': organization,
       'users.email': email
-    }).then(function (rows) {
+    }).then(function(rows) {
       if (rows.length === 0) {
         res.status(404).json("User Not Found");
       } else {
@@ -45,7 +45,7 @@ router.post('/signin', function (req, res, next) {
         });
       }
       return next();
-    }).catch(function (err) {
+    }).catch(function(err) {
       return res.status(500).json(err);
     });
 

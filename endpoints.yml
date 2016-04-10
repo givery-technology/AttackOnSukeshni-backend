@@ -1,4 +1,4 @@
-- /auth: 
+/auth: 
   POST /auth/signup:
     params:
       email: string
@@ -78,7 +78,7 @@
 ---
 
 
-- /organizations: 
+/organizations: 
   GET /organizations:
     params:
       offset: number || 0
@@ -113,17 +113,23 @@
         message: "Organization Not Found"
   GET /organizations/:id/flowers:
     params:
-      begin_id: number # of sender
+      begin_id: number || 0 # of sender
       limit: number || 20
     responses:
       200:
-        flowers:
-          - name: string
-            count: number
-        - send:
-            send_id: number
+        send:
+          - send_id: number
             flower_name: string
             message: string
 
-  - GET /organizations/:id/members
+  GET /organizations/:id/members:
+    params:
+      offset: number || 0
+      limit: number || 20
+    responses:
+      200:
+        users:
+          - id: number
+            name: string
+            image_url: string
   - POST /organizations/:id/members
