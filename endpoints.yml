@@ -1,4 +1,4 @@
-- /auth: 
+/auth: 
   POST /auth/signup:
     params:
       email: string
@@ -78,7 +78,7 @@
 ---
 
 
-- /organizations: 
+/organizations: 
   GET /organizations:
     params:
       offset: number || 0
@@ -122,7 +122,7 @@
             flower_name: string
             message: string
 
-  - GET /organizations/:id/members
+  GET /organizations/:id/members:
     params:
       offset: number || 0
       limit: number || 20
