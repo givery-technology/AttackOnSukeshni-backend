@@ -117,11 +117,8 @@
       limit: number || 20
     responses:
       200:
-        flowers:
-          - name: string
-            count: number
-        - send:
-            send_id: number
+        send:
+          - send_id: number
             flower_name: string
             message: string
 

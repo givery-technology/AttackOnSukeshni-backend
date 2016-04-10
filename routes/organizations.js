@@ -14,6 +14,10 @@ router.get('/', function (req, res, next) {
     .from('organizations')
     .offset(offset).limit(limit)
     .then(function(rows) {
+      if (rows.length === 0) {
+        res.status(404).json(new Error("Organizations Not Found"));
+        return next();
+      }
       res.status(200).json(rows);
       return next();
     })
@@ -34,61 +38,55 @@ router.post('/', function (req, res, next) {
 });
 
 router.get('/:id', function(req, res, next) {
-  // mock data
-  res.status(200).json({
-    organization: {
-      id: req.params.id,
-      name: "organization32",
-      image_url: null,
-    },
-    flowers: [
-      {
-        name: "pansy",
-        count: 23,
-      },
-      {
-        name: "rose",
-        count: 3,
-      },
-      {
-        name: "blossom",
-        count: 19
-      },
-    ]
-  });
-  return next();  
+  knex('organizations')
+    .join('organization_members', 'organizations.id', '=', 'organization_members.organization_id')
+    .join('user_flowers', 'organization_members.user_id', '=', 'user_flowers.sender_user_id')
+    .join('flowers', 'user_flowers.flower_id', '=', 'flowers.id')
+    .select('organizations.id', 'organizations.name', 'organizations.image_url', 'flowers.name as flower').count('flowers.id as count')
+    .groupBy('organizations.id', 'flowers.name')
+    .where({'organizations.id': req.params.id})
+    .then(function(rows) {
+      if (rows.length === 0) {
+        res.status(404).json(new Error("Organizations Not Found"));
+        return next();
+      }
+      let organization = {
+        id: rows[0].id,
+        name: rows[0].name,
+        image_url: rows[0].image_url,
+      };
+      let flowers = rows.map(function(elem) {
+        return {
+          name: elem.flower,
+          count: elem.count
+        };
+      });
+      res.status(200).json({
+        organization: organization,
+        flowers: flowers,
+      });
+      return next();
+    });
 });
 
-router.get('/:id/flowers', function (req, res, next) {
-  res.status(200).json({
-    flowers: [
-      {
-        name: "pansy",
-        count: 23,
-      },
-      {
-        name: "rose",
-        count: 3,
-      },
-      {
-        name: "blossom",
-        count: 19
-      },
-    ],
-    send: [
-      {
-        send_id: 23,
-        flower_name: "blossom",
-        message: "Fight!!",
-      },
-      {
-        send_id: 25,
-        flower_name: "cherry",
-        message: "Oh god, so sleepy",
-      },
-    ]
-  });
-  return next();
+router.get('/:id/flowers', function(req, res, next) {
+  var begin_id = req.body.begin_id || 0;
+  var limit = req.body.limit || 20;
+  knex('user_flowers as uf')
+    .join('flowers', 'uf.flower_id', '=', 'flowers.id')
+    .join('organization_members', 'uf.sender_user_id', '=', 'organization_members.user_id')
+    .join('organizations', 'organization_members.organization_id', '=', 'organizations.id')
+    .select('uf.id', 'uf.flower_id', 'uf.message')
+    .groupBy('organizations.id', 'flowers.name')
+    .where({'organizations.id': req.params.id})
+    .andWhere('uf.id', '>', begin_id)
+    .limit(limit)
+    .then(function(rows) {
+      console.log(rows);
+      res.status(200).json({
+        send: rows
+      });
+    });
 });
 
 module.exports = router;
