@@ -68,6 +68,7 @@ router.get('/:id', function(req, res, next) {
 });
 
 router.get('/:id/flowers', function(req, res, next) {
+  console.log('Access `/organizations/:id/flowers`');
   let
     begin_id = req.body.begin_id || 0,
     limit    = req.body.limit || 20;
@@ -81,9 +82,11 @@ router.get('/:id/flowers', function(req, res, next) {
     .andWhere('uf.id', '>', begin_id)
     .limit(limit)
     .then(function(rows) {
+      console.log("Got data", rows);
       res.status(200).json({
         send: rows
       });
+      return next();
     });
 });
 
