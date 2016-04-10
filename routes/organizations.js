@@ -38,7 +38,7 @@ router.post('/', function(req, res, next) {
 router.get('/:id', function(req, res, next) {
   knex('organizations')
     .join('organization_members', 'organizations.id', '=', 'organization_members.organization_id')
-    .join('user_flowers', 'organization_members.user_id', '=', 'user_flowers.sender_user_id')
+    .join('user_flowers', 'organization_members.user_id', '=', 'user_flowers.receiver_user_id')
     .join('flowers', 'user_flowers.flower_id', '=', 'flowers.id')
     .select('organizations.id', 'organizations.name', 'organizations.image_url', 'flowers.name as flower').count('flowers.id as count')
     .groupBy('organizations.id', 'flowers.name')
@@ -68,22 +68,25 @@ router.get('/:id', function(req, res, next) {
 });
 
 router.get('/:id/flowers', function(req, res, next) {
+  console.log('Access `/organizations/:id/flowers`');
   let
     begin_id = req.body.begin_id || 0,
     limit    = req.body.limit || 20;
   knex('user_flowers as uf')
     .join('flowers', 'uf.flower_id', '=', 'flowers.id')
-    .join('organization_members', 'uf.sender_user_id', '=', 'organization_members.user_id')
+    .join('organization_members', 'uf.receiver_user_id', '=', 'organization_members.user_id')
     .join('organizations', 'organization_members.organization_id', '=', 'organizations.id')
-    .select('uf.id', 'flowers.name', 'uf.message')
-    .groupBy('organizations.id', 'flowers.name')
+    .select('uf.id', 'flowers.name as flower_name', 'uf.message', 'uf.created_at as received_at')
+    .groupBy('organizations.id', 'flower_name')
     .where({'organizations.id': req.params.id})
     .andWhere('uf.id', '>', begin_id)
     .limit(limit)
     .then(function(rows) {
+      console.log("Got data", rows);
       res.status(200).json({
-        send: rows
+        receive: rows
       });
+      return next();
     });
 });
 
