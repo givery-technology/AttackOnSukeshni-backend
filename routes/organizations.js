@@ -1,5 +1,5 @@
 'use strict';
-var
+const
   express = require('express'),
   router = express.Router(),
   knex   = require('../helpers/knex');
@@ -7,8 +7,9 @@ var
 router.use(require('../middlewares/auth'));
 
 router.get('/', function(req, res, next) {
-  let offset = req.body.offset || 0;
-  let limit  = req.body.limit || 20;
+  let
+    offset = req.body.offset || 0,
+    limit  = req.body.limit || 20;
   knex
     .select('id', 'name', 'image_url')
     .from('organizations')
@@ -19,6 +20,7 @@ router.get('/', function(req, res, next) {
     })
     .catch(function(err) {
       res.status(500).json(err);
+      return next();
     });
 });
 
@@ -66,8 +68,9 @@ router.get('/:id', function(req, res, next) {
 });
 
 router.get('/:id/flowers', function(req, res, next) {
-  var begin_id = req.body.begin_id || 0;
-  var limit = req.body.limit || 20;
+  let
+    begin_id = req.body.begin_id || 0,
+    limit    = req.body.limit || 20;
   knex('user_flowers as uf')
     .join('flowers', 'uf.flower_id', '=', 'flowers.id')
     .join('organization_members', 'uf.sender_user_id', '=', 'organization_members.user_id')
@@ -82,6 +85,26 @@ router.get('/:id/flowers', function(req, res, next) {
       res.status(200).json({
         send: rows
       });
+    });
+});
+
+router.get('/:id/members', function(req, res, next) {
+  let
+    offset = req.body.offset || 0,
+    limit  = req.body.limit || 20;
+  knex('organization_members as members')
+    .join('users', 'members.user_id', '=', 'users.id')
+    .select('users.id', 'users.name', 'users.image_url')
+    .where({'members.organization_id': req.params.id})
+    .then(function(rows) {
+      res.status(200).json({
+        users: rows
+      });
+      return next();
+    })
+    .catch(function(err) {
+      res.status(500).json(err);
+      return next();
     });
 });
 
