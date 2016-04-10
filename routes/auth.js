@@ -42,23 +42,24 @@ router.post('/signin', function(req, res, next) {
         res.status(404).json("User Not Found");
         return next();
       }
-      let user = rows[0];
+      let data = rows[0];
       res.status(200).json({
         user: {
-          id: user_id,
-          email: user_email,
-          name: user_name,
-          image_url: user_image_url,
+          id: data.user_id,
+          email: data.user_email,
+          name: data.user_name,
+          image_url: data.user_image_url,
         },
         organization: {
-          id: organization_id,
-          name: organization_name,
-          image_url: organization_image_url,
+          id: data.organization_id,
+          name: data.organization_name,
+          image_url: data.organization_image_url,
         },
         token: "dummytoken",
       });
       return next();
     }).catch(function(err) {
+      console.log(err);
       return res.status(500).json(err);
     });
 
