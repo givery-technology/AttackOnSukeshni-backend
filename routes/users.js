@@ -31,7 +31,7 @@ router.get('/', function (req, res, next) {
 router.get('/:id', function (req, res, next) {
 
   knex('users')
-  .join('user_flowers', 'users.id', '=', 'user_flowers.reciever_user_id')
+  .join('user_flowers', 'users.id', '=', 'user_flowers.receiver_user_id')
   .join('flowers', 'user_flowers.flower_id', '=', 'flowers.id')
   .select('users.id', 'users.name', 'users.image_url', 'flowers.name as flower').count('flowers.id as count')
   .groupBy('users.id', 'flowers.name')
@@ -72,7 +72,7 @@ router.get('/:id/flowers', function(req, res, next) {
     .join('flowers', 'uf.flower_id', '=', 'flowers.id')
     .join('users as sender', 'uf.sender_user_id', '=', 'sender.id')
     .select('uf.id', 'uf.sender_user_id', 'sender.name as sender_name', 'sender.image_url', 'flowers.name as flower_name', 'uf.message', 'uf.created_at')
-    .where({'uf.reciever_user_id': req.params.id})
+    .where({'uf.receiver_user_id': req.params.id})
     .andWhere('uf.id', '>', begin_id)
     .limit(limit)
     .then(function(rows) {
