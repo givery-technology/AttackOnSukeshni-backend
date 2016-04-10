@@ -55,17 +55,15 @@
       limit: number || 20
     responses:
       200:
-        flowers:
-          - name: string
-            count: number
-        - send:
-            send_id: number
+        send:
+          - send_id: number
             sender:
               id: int
               name: string
               image_url: string
             flower_name: string
             message: string
+            send_at: date
   POST /users/:id/flowers:
     params:
       sender_id: number
@@ -121,7 +119,7 @@
           - send_id: number
             flower_name: string
             message: string
-
+            send_at: date
   GET /organizations/:id/members:
     params:
       offset: number || 0
