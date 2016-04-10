@@ -14,10 +14,6 @@ router.get('/', function(req, res, next) {
     .from('organizations')
     .offset(offset).limit(limit)
     .then(function(rows) {
-      if (rows.length === 0) {
-        res.status(404).json(new Error("Organizations Not Found"));
-        return next();
-      }
       res.status(200).json(rows);
       return next();
     })
