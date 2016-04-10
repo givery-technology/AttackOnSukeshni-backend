@@ -103,7 +103,7 @@ router.post('/:id/flowers', function (req, res, next) {
           "message": "Flower Not Found"
         });       
       }
-      knex('user_flowers').insert({sender_user_id: req.body.sender_id, reciever_user_id: req.body.reciever_id, flower_id: row[0].id, message: req.body.message})
+      knex('user_flowers').insert({sender_user_id: req.body.sender_id, receiver_user_id: req.params.id, flower_id: row[0].id, message: req.body.message})
         .then(function(row) {
           return res.status(201).send({
             "id": row
