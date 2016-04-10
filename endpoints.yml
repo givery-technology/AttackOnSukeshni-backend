@@ -19,6 +19,11 @@
       200:
         user:
           id: number
+          email: string
+          name: string
+          image_url: string
+        organization:
+          id: number
           name: string
           image_url: string
         token: "dummytoken"
