@@ -1,4 +1,4 @@
-- /auth: 
+/auth: 
   POST /auth/signup:
     params:
       email: string
@@ -18,6 +18,11 @@
     responses:
       200:
         user:
+          id: number
+          email: string
+          name: string
+          image_url: string
+        organization:
           id: number
           name: string
           image_url: string
@@ -51,25 +56,22 @@
         message: "User Not Found"
   GET /users/:id/flowers:
     params:
-      begin_id: number # of sender
+      begin_id: number # of receiver
       limit: number || 20
     responses:
       200:
-        flowers:
-          - name: string
-            count: number
-        - send:
-            send_id: number
-            sender:
+        receive:
+          - receive_id: number
+            receiver:
               id: int
               name: string
               image_url: string
             flower_name: string
             message: string
+            received_at: date
   POST /users/:id/flowers:
     params:
       sender_id: number
-      reciever_id: number
       flower_name: string
       message: string
     responses:
@@ -78,7 +80,7 @@
 ---
 
 
-- /organizations: 
+/organizations: 
   GET /organizations:
     params:
       offset: number || 0
@@ -113,17 +115,23 @@
         message: "Organization Not Found"
   GET /organizations/:id/flowers:
     params:
-      begin_id: number # of sender
+      begin_id: number || 0 # of receiver
       limit: number || 20
     responses:
       200:
-        flowers:
-          - name: string
-            count: number
-        - send:
-            send_id: number
+        receive:
+          - receive_id: number
             flower_name: string
             message: string
-
-  - GET /organizations/:id/members
+            received_at: date
+  GET /organizations/:id/members:
+    params:
+      offset: number || 0
+      limit: number || 20
+    responses:
+      200:
+        users:
+          - id: number
+            name: string
+            image_url: string
   - POST /organizations/:id/members

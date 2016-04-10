@@ -38,12 +38,12 @@ CREATE TABLE IF NOT EXISTS flowers (
 CREATE TABLE IF NOT EXISTS user_flowers (
   id integer PRIMARY KEY AUTOINCREMENT,
   sender_user_id integer NOT NULL,
-  reciever_user_id integer NOT NULL,
+  receiver_user_id integer NOT NULL,
   flower_id integer NOT NULL,
   message varchar(200) NULL,
   created_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY(reciever_user_id) REFERENCES users(id),
-  FOREIGN KEY(reciever_user_id) REFERENCES users(id),
+  FOREIGN KEY(receiver_user_id) REFERENCES users(id),
+  FOREIGN KEY(receiver_user_id) REFERENCES users(id),
   FOREIGN KEY(flower_id) REFERENCES flowers(id)
 );
 
@@ -109,9 +109,9 @@ INSERT INTO flowers (id, url, name) VALUES (1,  'http://www.planwallpaper.com/st
 INSERT INTO flowers (id, url, name) VALUES (2,  'http://www.wonderslist.com/wp-content/uploads/2013/01/Most-Beautiful-Flowers.jpg', 'flower2');
 INSERT INTO flowers (id, url, name) VALUES (3,  'http://www.planwallpaper.com/static/images/Flowers-Photos-8-Cool-Wallpapers-HD.jpg', 'flower3');
 
-INSERT INTO user_flowers (id, sender_user_id, reciever_user_id, flower_id, message) VALUES (1, 1,  4,  1, "Thank you user4 for fixing the door");
-INSERT INTO user_flowers (id, sender_user_id, reciever_user_id, flower_id, message) VALUES (2, 4,  5,  2, "Thank you user5 for letting me use your laptop");
-INSERT INTO user_flowers (id, sender_user_id, reciever_user_id, flower_id, message) VALUES (3, 4,  6,  3, "Thank you user6 for helping out with customers");
-INSERT INTO user_flowers (id, sender_user_id, reciever_user_id, flower_id, message) VALUES (4, 2,  11, 1, "Thank you user11 helping me with user settings ");
-INSERT INTO user_flowers (id, sender_user_id, reciever_user_id, flower_id, message) VALUES (5, 12, 11, 2, "Thank you user11 for your advice on React");
-INSERT INTO user_flowers (id, sender_user_id, reciever_user_id, flower_id, message) VALUES (6, 3,  13, 1, "Thank you user13");
+INSERT INTO user_flowers (id, sender_user_id, receiver_user_id, flower_id, message) VALUES (1, 1,  4,  1, "Thank you user4 for fixing the door");
+INSERT INTO user_flowers (id, sender_user_id, receiver_user_id, flower_id, message) VALUES (2, 4,  5,  2, "Thank you user5 for letting me use your laptop");
+INSERT INTO user_flowers (id, sender_user_id, receiver_user_id, flower_id, message) VALUES (3, 4,  6,  3, "Thank you user6 for helping out with customers");
+INSERT INTO user_flowers (id, sender_user_id, receiver_user_id, flower_id, message) VALUES (4, 2,  11, 1, "Thank you user11 helping me with user settings ");
+INSERT INTO user_flowers (id, sender_user_id, receiver_user_id, flower_id, message) VALUES (5, 12, 11, 2, "Thank you user11 for your advice on React");
+INSERT INTO user_flowers (id, sender_user_id, receiver_user_id, flower_id, message) VALUES (6, 3,  13, 1, "Thank you user13");
