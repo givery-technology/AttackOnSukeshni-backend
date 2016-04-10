@@ -81,7 +81,6 @@ router.get('/:id/flowers', function(req, res, next) {
     .andWhere('uf.id', '>', begin_id)
     .limit(limit)
     .then(function(rows) {
-      console.log(rows);
       res.status(200).json({
         send: rows
       });
