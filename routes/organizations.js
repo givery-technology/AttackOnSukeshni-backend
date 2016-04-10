@@ -87,6 +87,10 @@ router.get('/:id/flowers', function(req, res, next) {
         receive: rows
       });
       return next();
+    })
+    .catch(function(err) {
+      console.log(err);
+      res.status(500).json(err);
     });
 });
 
