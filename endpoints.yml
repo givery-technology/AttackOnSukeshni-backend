@@ -60,15 +60,15 @@
       limit: number || 20
     responses:
       200:
-        receive:
-          - receive_id: number
-            receiver:
+        send:
+          - send_id: number
+            sender:
               id: int
               name: string
               image_url: string
             flower_name: string
             message: string
-            received_at: date
+            sent_at: date
   POST /users/:id/flowers:
     params:
       sender_id: number
