@@ -6,7 +6,7 @@ var
 router.use(require('../middlewares/auth'));
 
 // GET /users
-router.get('/', function (req, res, next) {
+router.get('/', function(req, res, next) {
   // res.json(["users"]);
   res.status(200).json(
     {
@@ -20,7 +20,7 @@ router.get('/', function (req, res, next) {
 });
 
 // GET /users/:id
-router.get('/:id', function (req, res, next) {
+router.get('/:id', function(req, res, next) {
   res.status(200).json(
     {
       id: req.params.id, name: "John Doe", "image_url":null
@@ -29,7 +29,7 @@ router.get('/:id', function (req, res, next) {
 });
 
 
-router.get('/:id/flowers', function (req, res, next) {
+router.get('/:id/flowers', function(req, res, next) {
   res.status(200).json(
     {
       "flowers":[
@@ -63,7 +63,7 @@ router.get('/:id/flowers', function (req, res, next) {
   return next();
 });
 
-router.post('/:id/flowers', function (req, res, next) {
+router.post('/:id/flowers', function(req, res, next) {
   res.status(201);
   return next();
 });

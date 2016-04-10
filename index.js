@@ -14,6 +14,6 @@ app.use('/auth', require('./routes/auth'));
 app.use('/users', require('./routes/users'));
 app.use('/organizations', require('./routes/organizations'));
 
-app.listen(port, function () {
+app.listen(port, function() {
   console.log('Server running with port', port);
 });

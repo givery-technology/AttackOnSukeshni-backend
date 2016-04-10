@@ -6,7 +6,7 @@ var
 
 router.use(require('../middlewares/auth'));
 
-router.get('/', function (req, res, next) {
+router.get('/', function(req, res, next) {
   let offset = req.body.offset || 0;
   let limit  = req.body.limit || 20;
   knex
@@ -26,7 +26,7 @@ router.get('/', function (req, res, next) {
     });
 });
 
-router.post('/', function (req, res, next) {
+router.post('/', function(req, res, next) {
   res.status(201).json({
     organization: {
       id: 100,
