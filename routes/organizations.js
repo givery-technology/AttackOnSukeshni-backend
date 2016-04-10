@@ -76,7 +76,7 @@ router.get('/:id/flowers', function(req, res, next) {
     .join('flowers', 'uf.flower_id', '=', 'flowers.id')
     .join('organization_members', 'uf.sender_user_id', '=', 'organization_members.user_id')
     .join('organizations', 'organization_members.organization_id', '=', 'organizations.id')
-    .select('uf.id', 'uf.flower_id', 'uf.message')
+    .select('uf.id', 'flowers.name', 'uf.message')
     .groupBy('organizations.id', 'flowers.name')
     .where({'organizations.id': req.params.id})
     .andWhere('uf.id', '>', begin_id)
