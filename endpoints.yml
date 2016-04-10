@@ -56,19 +56,19 @@
         message: "User Not Found"
   GET /users/:id/flowers:
     params:
-      begin_id: number # of reciever
+      begin_id: number # of receiver
       limit: number || 20
     responses:
       200:
-        recieve:
-          - recieve_id: number
-            reciever:
+        receive:
+          - receive_id: number
+            receiver:
               id: int
               name: string
               image_url: string
             flower_name: string
             message: string
-            recieved_at: date
+            received_at: date
   POST /users/:id/flowers:
     params:
       sender_id: number
@@ -115,15 +115,15 @@
         message: "Organization Not Found"
   GET /organizations/:id/flowers:
     params:
-      begin_id: number || 0 # of reciever
+      begin_id: number || 0 # of receiver
       limit: number || 20
     responses:
       200:
-        recieve:
-          - recieve_id: number
+        receive:
+          - receive_id: number
             flower_name: string
             message: string
-            recieved_at: date
+            received_at: date
   GET /organizations/:id/members:
     params:
       offset: number || 0
