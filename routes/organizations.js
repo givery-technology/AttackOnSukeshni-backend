@@ -84,7 +84,7 @@ router.get('/:id/flowers', function(req, res, next) {
     .then(function(rows) {
       console.log("Got data", rows);
       res.status(200).json({
-        recive: rows
+        receive: rows
       });
       return next();
     });
